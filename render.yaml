@@ -8,5 +8,7 @@ services:
     envVars:
       - key: DATABASE_URL
         sync: false        # You'll paste this in from Neon
+      - key: ADMIN_SECRET
+        sync: false        # Admin password — MUST match ADMIN_SECRET on Vercel
       - key: NODE_ENV
         value: production

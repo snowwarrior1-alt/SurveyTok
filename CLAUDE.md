@@ -196,7 +196,8 @@ npm start
 
 - **Database**: Neon.tech (free PostgreSQL) — separate Neon project from DIWTKN
 - **Backend**: Render.com free web service — connect this GitHub repo, uses `render.yaml`
-  - Set env var: `DATABASE_URL` (from Neon)
+  - Set env vars: `DATABASE_URL` (from Neon) and `ADMIN_SECRET` (must match the value on Vercel)
+  - Both are declared in `render.yaml` with `sync: false`, so Render prompts for them on deploy
   - `start:prod` script runs `prisma migrate deploy` before server start
 - **App**: Run locally via Expo Go; update `extra.apiUrl` in `app.json` to the Render URL
 
@@ -244,5 +245,5 @@ Admin password entered in browser → POST `/api/admin/auth` → checked server-
 - Use `npm.cmd` instead of `npm` in PowerShell (avoids `.ps1` execution policy errors)
 - Use `npm install --ignore-scripts` (avoids native build failures with Expo Go)
 - `prisma` package is in `dependencies` (not devDependencies) because `start:prod` invokes it at runtime
-- Git branch: `master` (initialized locally — rename to `main` if preferred)
+- Git branch: `main` (default branch on GitHub)
 - Git user: `snowwarrior1-alt` / `snowwarrior1-alt@users.noreply.github.com`
