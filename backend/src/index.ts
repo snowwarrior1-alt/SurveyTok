@@ -16,12 +16,18 @@ app.set('trust proxy', 1)
 // (the Expo app and server-to-server calls send no Origin header).
 const WEB_ORIGINS = (process.env.WEB_ORIGIN || 'https://survey-tok-nouc.vercel.app')
   .split(',').map(s => s.trim()).filter(Boolean)
+const isProd = process.env.NODE_ENV === 'production'
 app.use(cors({
   origin(origin, cb) {
     if (!origin) return cb(null, true)
     try {
       const host = new URL(origin).hostname
-      if (WEB_ORIGINS.includes(origin) || host.endsWith('.vercel.app')) return cb(null, true)
+      const isLocalhost = host === 'localhost' || host === '127.0.0.1'
+      if (
+        WEB_ORIGINS.includes(origin) ||
+        host.endsWith('.vercel.app') ||
+        (!isProd && isLocalhost)
+      ) return cb(null, true)
     } catch { /* fall through */ }
     cb(new Error('Not allowed by CORS'))
   },
